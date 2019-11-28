@@ -113,6 +113,12 @@ class UserPublic(Resource):
 
     @admins_only
     def delete(self, user_id):
+        # import time; time.sleep(60)
+        if get_current_user().id == user_id:
+            return {
+                'success': False,
+                'data': 'Cannot delete own account'
+            }
         Notifications.query.filter_by(user_id=user_id).delete()
         Awards.query.filter_by(user_id=user_id).delete()
         Unlocks.query.filter_by(user_id=user_id).delete()

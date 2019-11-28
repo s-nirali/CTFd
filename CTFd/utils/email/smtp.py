@@ -51,10 +51,14 @@ def sendmail(addr, text):
 
         smtp.sendmail(msg["From"], [msg["To"]], msg.as_string())
         smtp.quit()
+        print('~~~', 'Done')
         return True, "Email sent"
     except smtplib.SMTPException as e:
+        print('~~~', e)
         return False, str(e)
     except timeout:
+        print('~~~~', e)
         return False, "SMTP server connection timed out"
     except Exception as e:
+        print('~~~~~', e)
         return False, str(e)
